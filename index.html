@@ -324,8 +324,11 @@ html .floating-icons .btn { border-radius: 50rem !important; }		</style>
       return { device_id: 'your-stable-device-id' };
     },
     track: function(eventType, eventProperties) {
-      // Only send once per flag key + variant combination
+      console.log('track called:', eventType, JSON.stringify(eventProperties));
+
       var key = eventProperties.flag_key + '_' + eventProperties.variant;
+      console.log('dedup key:', key, 'already sent:', !!window.experimentIntegration._impressed[key]);
+
       if (window.experimentIntegration._impressed[key]) return;
       window.experimentIntegration._impressed[key] = true;
 
