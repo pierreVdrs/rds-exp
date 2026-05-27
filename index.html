@@ -319,43 +319,45 @@ html .floating-icons .btn { border-radius: 50rem !important; }		</style>
 <script type="application/javascript">const rocket_pairs = [{"selector":".pnlm-container","style":".pnlm-container{--wpr-bg-071e624f-74d4-46ba-9834-7e7e803c6b58: url('https:\/\/roadsurfer.com\/wp-content\/plugins\/wpvr\/public\/lib\/pannellum\/src\/css\/img\/background.svg');}","hash":"071e624f-74d4-46ba-9834-7e7e803c6b58","url":"https:\/\/roadsurfer.com\/wp-content\/plugins\/wpvr\/public\/lib\/pannellum\/src\/css\/img\/background.svg"},{"selector":"#et-boc .et-l .pnlm-sprite,.pnlm-sprite","style":"#et-boc .et-l .pnlm-sprite,.pnlm-sprite{--wpr-bg-e50e2353-4e14-4055-b26d-960a10e4dab3: url('https:\/\/roadsurfer.com\/wp-content\/plugins\/wpvr\/public\/lib\/pannellum\/src\/css\/img\/sprites.svg');}","hash":"e50e2353-4e14-4055-b26d-960a10e4dab3","url":"https:\/\/roadsurfer.com\/wp-content\/plugins\/wpvr\/public\/lib\/pannellum\/src\/css\/img\/sprites.svg"},{"selector":"#et-boc .et-l .pnlm-compass,.pnlm-compass","style":"#et-boc .et-l .pnlm-compass,.pnlm-compass{--wpr-bg-cbb047ee-cef9-4332-a436-1079af73ecd4: url('https:\/\/roadsurfer.com\/wp-content\/plugins\/wpvr\/public\/lib\/pannellum\/src\/css\/img\/compass.svg');}","hash":"cbb047ee-cef9-4332-a436-1079af73ecd4","url":"https:\/\/roadsurfer.com\/wp-content\/plugins\/wpvr\/public\/lib\/pannellum\/src\/css\/img\/compass.svg"},{"selector":".vrowl-carousel .owl-video-play-icon","style":".vrowl-carousel .owl-video-play-icon{--wpr-bg-17a90a2e-3855-4c29-bb09-18fff0eeee35: url('https:\/\/roadsurfer.com\/wp-content\/plugins\/wpvr\/public\/css\/owl.video.play.png');}","hash":"17a90a2e-3855-4c29-bb09-18fff0eeee35","url":"https:\/\/roadsurfer.com\/wp-content\/plugins\/wpvr\/public\/css\/owl.video.play.png"}]; const rocket_excluded_pairs = [];</script><meta name="generator" content="WP Rocket 3.21.0" data-wpr-features="wpr_lazyload_css_bg_img wpr_delay_js wpr_defer_js wpr_minify_js wpr_lazyload_images wpr_lazyload_iframes wpr_preconnect_external_domains wpr_auto_preload_fonts wpr_automatic_lazy_rendering wpr_oci wpr_image_dimensions wpr_minify_css wpr_preload_links wpr_desktop" />
 
 <script>
-  window.experimentIntegration = {
-    _impressed: {},
-    getUser: function() {
-      var deviceId = localStorage.getItem('amp_device_id');
-      if (!deviceId) {
-        deviceId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-          var r = Math.random() * 16 | 0;
-          return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-        });
-        localStorage.setItem('amp_device_id', deviceId);
-      }
-      return { device_id: deviceId };
-    },
-    track: function(event) {
-      var eventType = event.eventType;
-      var eventProperties = event.eventProperties;
-
-      var key = eventProperties.flag_key + '_' + eventProperties.variant;
-      if (window.experimentIntegration._impressed[key]) return;
-      window.experimentIntegration._impressed[key] = true;
-
-      fetch('https://api.eu.amplitude.com/2/httpapi', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          api_key: '31d0edfc984f4c755cf5e5706623ddfa',
-          events: [{
-            event_type: eventType,
-            device_id: window.experimentIntegration.getUser().device_id,
-            event_properties: eventProperties
-          }]
-        })
+  (function() {
+    var deviceId = localStorage.getItem('amp_device_id');
+    if (!deviceId) {
+      deviceId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0;
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
       });
+      localStorage.setItem('amp_device_id', deviceId);
     }
-  };
-</script>
 
+    window.experimentIntegration = {
+      _impressed: {},
+      getUser: function() {
+        return { device_id: deviceId };
+      },
+      track: function(event) {
+        var eventType = event.eventType;
+        var eventProperties = event.eventProperties;
+
+        var key = eventProperties.flag_key + '_' + eventProperties.variant;
+        if (window.experimentIntegration._impressed[key]) return;
+        window.experimentIntegration._impressed[key] = true;
+
+        fetch('https://api.eu.amplitude.com/2/httpapi', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            api_key: '31d0edfc984f4c755cf5e5706623ddfa',
+            events: [{
+              event_type: eventType,
+              device_id: deviceId,
+              event_properties: eventProperties
+            }]
+          })
+        });
+      }
+    };
+  })();
+</script>
 
 
 <script src="https://cdn.eu.amplitude.com/script/31d0edfc984f4c755cf5e5706623ddfa.experiment.js"></script>
