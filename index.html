@@ -322,7 +322,15 @@ html .floating-icons .btn { border-radius: 50rem !important; }		</style>
   window.experimentIntegration = {
     _impressed: {},
     getUser: function() {
-      return { device_id: 'your-stable-device-id' };
+      var deviceId = localStorage.getItem('amp_device_id');
+      if (!deviceId) {
+        deviceId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+          var r = Math.random() * 16 | 0;
+          return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+        localStorage.setItem('amp_device_id', deviceId);
+      }
+      return { device_id: deviceId };
     },
     track: function(event) {
       var eventType = event.eventType;
@@ -347,6 +355,7 @@ html .floating-icons .btn { border-radius: 50rem !important; }		</style>
     }
   };
 </script>
+
 
 
 <script src="https://cdn.eu.amplitude.com/script/31d0edfc984f4c755cf5e5706623ddfa.experiment.js"></script>
